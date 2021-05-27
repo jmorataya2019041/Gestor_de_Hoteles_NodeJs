@@ -293,8 +293,6 @@ async function reservationId(req, res){
     })
 }
 
-//Función para obtener 
-
 module.exports = {
     UsuarioPrueba,
     Registro,

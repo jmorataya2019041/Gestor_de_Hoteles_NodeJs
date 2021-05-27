@@ -240,6 +240,7 @@ async function addRoom(req, res){
             habitacionModel.precio = params.precio;
             habitacionModel.disponibility = "true";
             habitacionModel.hotel = params.hotel;
+
             
             await habitacionModel.save((err, roomSave)=>{
                 if(err){
@@ -294,7 +295,6 @@ async function editRoom(req, res){
     if(req.user.rol === "Admin_Hotel"){
         var idRoom = req.params.idRoom;
         var params = req.body;
-
         await Habitacion.findByIdAndUpdate(idRoom, params, {new: true}, (err, roomEdit)=>{
             if(err){
                 return res.status(500).send({mensaje: "Error en la petición"})
@@ -313,7 +313,6 @@ async function editRoom(req, res){
 async function deleteRoom(req, res){
     if(req.user.rol === "Admin_Hotel"){
         var idRoom = req.params.idRoom;
-
         await Habitacion.findByIdAndDelete(idRoom, (err, roomDelete)=>{
             if(err){
                 return res.status(500).send({mensaje: "Error en la petición"})

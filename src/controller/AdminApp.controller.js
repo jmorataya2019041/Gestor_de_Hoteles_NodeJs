@@ -163,51 +163,43 @@ async function obtenerHotelId(req, res){
 
 //Función para editar hotel
 async function editHotel(req, res){
-    if(req.user.rol === "Admin_App"){
-        var idHotel = req.params.idHotel;
-        var params = req.body;
+    var idHotel = req.params.idHotel;
+    var params = req.body;
 
-        var adminActual = await Hotel.findById(idHotel);
+    var adminActual = await Hotel.findById(idHotel);
 
-        await Usuario.findByIdAndUpdate(adminActual.admin, {rol: "Rol_Cliente"});
+    await Usuario.findByIdAndUpdate(adminActual.admin, {rol: "Rol_Cliente"});
 
-        await Usuario.findByIdAndUpdate(params.admin, {rol: "Admin_Hotel"});
+    await Usuario.findByIdAndUpdate(params.admin, {rol: "Admin_Hotel"});
 
-        await Hotel.findByIdAndUpdate(idHotel, params, {new: true} , (err, updateHotel)=>{
-            if(err){
-                return res.status(500).send({mensaje: "Error en la petición"})
-            }else if(!updateHotel){
-                return res.status(500).send({mensaje: "No se ha podido editar el hotel"})
-            }else{
-                return res.status(200).send({updateHotel})
-            }
-        })
-    }else{
-        return res.status(500).send({mensaje: "No tiene el rol de autorización"})
-    }
+    await Hotel.findByIdAndUpdate(idHotel, params, {new: true} , (err, updateHotel)=>{
+        if(err){
+            return res.status(500).send({mensaje: "Error en la petición"})
+        }else if(!updateHotel){
+            return res.status(500).send({mensaje: "No se ha podido editar el hotel"})
+        }else{
+            return res.status(200).send({updateHotel})
+        }
+    })
 }
 
 //Función para eliminar el hotel
 async function deleteHotel(req, res){
-    if(req.user.rol === "Admin_App"){
-        var idHotel = req.params.idHotel;
+    var idHotel = req.params.idHotel;
 
-        var adminHotel = await Hotel.findById(idHotel);
+    var adminHotel = await Hotel.findById(idHotel);
 
-        await Usuario.findByIdAndUpdate(adminHotel.admin, {rol: "Rol_Cliente"});
+    await Usuario.findByIdAndUpdate(adminHotel.admin, {rol: "Rol_Cliente"});
 
-        await Hotel.findByIdAndDelete(idHotel, (err, deleteHotel)=>{
-            if(err){
-                return res.status(500).send({mensaje: "Error en la petición"})
-            }else if(!deleteHotel){
-                return res.status(500).send({mensaje: "No se ha podido eliminar el hotel"})
-            }else{
-                return res.status(200).send({deleteHotel})
-            }
-        })
-    }else{
-        return res.status(500).send({mensaje: "No tiene el rol de autorización"})
-    }
+    await Hotel.findByIdAndDelete(idHotel, (err, deleteHotel)=>{
+        if(err){
+            return res.status(500).send({mensaje: "Error en la petición"})
+        }else if(!deleteHotel){
+            return res.status(500).send({mensaje: "No se ha podido eliminar el hotel"})
+        }else{
+            return res.status(200).send({deleteHotel})
+        }
+    })
 }
 
 //Función para editar un usuario
