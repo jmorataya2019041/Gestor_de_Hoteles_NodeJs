@@ -24,5 +24,6 @@ api.get('/searchRoom', adminhotelController.seeRoom),
 api.get('/seeRoomId/:idRoom', md_autenticacion.ensureAuth, adminhotelController.seeRoomId)
 api.put('/editRoom/:idRoom', md_autenticacion.ensureAuth, adminhotelController.editRoom)
 api.delete('/deleteRoom/:idRoom', md_autenticacion.ensureAuth, adminhotelController.deleteRoom)
+api.get('/reservationsUser/:idUsuario', adminhotelController.seeReservationOfUser)
 
 module.exports = api;

@@ -16,7 +16,7 @@ api.put("/editHotel/:idHotel", md_autenticacion.ensureAuth, adminAppcontroller.e
 api.delete("/deleteHotel/:idHotel", md_autenticacion.ensureAuth, adminAppcontroller.deleteHotel)
 api.put('/editUser/:idUser', md_autenticacion.ensureAuth, adminAppcontroller.editUser)
 api.delete('/deleteUser/:idUser', md_autenticacion.ensureAuth, adminAppcontroller.deleteUser)
-api.get('/userSee/:idUser', md_autenticacion.ensureAuth, adminAppcontroller.seeUser)
+api.get('/userSee/:idUser', adminAppcontroller.seeUser)
 api.post('/addEvento', md_autenticacion.ensureAuth, adminAppcontroller.addEvent)
 api.get('/getEvent', adminAppcontroller.getEvent)
 api.get('/getEventId/:idEvento', md_autenticacion.ensureAuth, adminAppcontroller.getEventId)

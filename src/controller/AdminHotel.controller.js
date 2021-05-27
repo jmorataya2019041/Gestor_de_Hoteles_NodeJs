@@ -5,6 +5,7 @@ const Servicios = require("../models/servicios.model")
 const TipoReservacion = require("../models/tiporeservacion.model")
 const Habitacion = require("../models/habitacion.model")
 const Hotel = require("../models/hotel.model")
+const Reservacion = require("../models/reservacion.model")
 
 
 //Función de Ejemplo Admin Hotel
@@ -327,6 +328,20 @@ async function deleteRoom(req, res){
     }
 }
 
+//Función para ver todas las reservaciones de un usuario
+async function seeReservationOfUser(req, res){
+    var idUsuario = req.params.idUsuario;
+    await Reservacion.find({usuario: idUsuario}).populate('tipoReservacion evento rooms.room usuario', 'nombre room_code').exec((err, seeReservacion)=>{
+        if(err){
+            return res.status(500).send({mensaje: "Error en la petición"})
+        }else if(!seeReservacion){
+            return res.status(500).send({mensaje: "No se ha podido obtener la reservación"})
+        }else{
+            return res.status(200).send({seeReservacion})
+        }
+    })
+}
+
 module.exports = {
     ejemploAdminHotel,
     addService,
@@ -345,5 +360,6 @@ module.exports = {
     seeRoom,
     seeRoomId,
     editRoom,
-    deleteRoom
+    deleteRoom,
+    seeReservationOfUser
 }

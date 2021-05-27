@@ -253,21 +253,17 @@ async function deleteUser(req, res){
 
 //Función para ver un usuario
 async function seeUser(req, res){
-    if(req.user.rol === "Admin_App"){
-        var idUser = req.params.idUser;
+    var idUser = req.params.idUser;
 
-        await Usuario.findById(idUser, (err, userSee)=>{
-            if(err){
-                return res.status(500).send({mensaje: "Error en la petición"})
-            }else if(!userSee){
-                return res.status(500).send({mensaje: "Error al obtener el usuario"})
-            }else{
-                return res.status(200).send({userSee})
-            }
+    await Usuario.findById(idUser, (err, userSee)=>{
+        if(err){
+            return res.status(500).send({mensaje: "Error en la petición"})
+        }else if(!userSee){
+            return res.status(500).send({mensaje: "Error al obtener el usuario"})
+        }else{
+            return res.status(200).send({userSee})
+        }
         })
-    }else{
-        return res.status(500).send({mensaje: "No tiene el rol de autorización"})
-    }
 }
 
 //Función para agregar un evento
